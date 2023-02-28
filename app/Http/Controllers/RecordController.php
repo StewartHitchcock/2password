@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Record;
+use Auth;
 use Illuminate\Http\Request;
 
 class RecordController extends Controller
@@ -12,7 +13,8 @@ class RecordController extends Controller
      */
     public function index()
     {
-        $records = Record::all();
+        $userId = Auth::user()->id;
+        $records = Record::where('user_id', $userId)->get();
 
         return view('records.index')
         ->with('records', $records);
@@ -32,14 +34,13 @@ class RecordController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:255 ',
             'website' => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
 
-        // dd($request);
-        Record::create($request->all());
+        auth()->user()->records()->create($request->all())->save();
 
         return redirect('/record');
     }
@@ -74,7 +75,8 @@ class RecordController extends Controller
 
         $record->update($request->all());
 
-        $records = Record::all();
+        $userId = Auth::user()->id;
+        $records = Record::where('user_id', $userId)->get();
 
         return view('records.index')->with('records', $records);
     }
@@ -88,7 +90,8 @@ class RecordController extends Controller
 
         $record->delete();
 
-        $records = Record::all();
+        $userId = Auth::user()->id;
+        $records = Record::where('user_id', $userId)->get();
 
         return redirect('/record')->with('records', $records);
     }

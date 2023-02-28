@@ -1,7 +1,12 @@
 @extends('layouts.app')
 @section('content')
-<div class="justify-content-center col-md-8">
-    <table>
+
+@if(count($records) == 0)
+<p>You have no records saved</p>
+<a href="{{route('record.create')}}">Create</a>
+@else
+<div class="w-50 mx-auto pt-5">
+    <table class="w-100">
         <tr>
             <th>Name</th>
             <th>Website</th>
@@ -10,21 +15,24 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        {{-- {{ dd($records);}} --}}
         @foreach($records as $key => $value)
         <tr>
             <td>{{$value->name}}</td>
             <td>{{$value->website}}</td>
             <td>{{$value->username}}</td>
-            <td>{{$value->Password}}</td>
-            {{-- {{dd($value->id)}} --}}
+            <td><input type="password" value="{{$value->password}}" readonly id="{{$value->name}}">
+                <button onclick="copyPassword({{$value->name}})">Copy</button>
+                <br />
+                <input type="checkbox" onclick="revealPassword({{$value->name}})"> Show Password
+            </td>
+
             <td><a href="{{route('record.edit', $value->id)}}">Edit</a></td>
             <td>
                 <form action="{{ route('record.destroy', $value->id) }}" method="post">
                     @method('delete')
                     @csrf
                     <button type="submit" class="btn btn-default p-0">
-                        <i class="ft-trash-2 text-grey font-medium-5 font-weight-normal">fas</i>
+                        <a class="">Delete</a>
                     </button>
                 </form>
             </td>
@@ -43,4 +51,24 @@
         padding: 8px;
     }
 </style>
+
+<script>
+    function revealPassword(revealButton) {
+        let x = document.getElementById(revealButton.id);
+        if (x.type === "password") {
+        x.type = "text";
+        } else {
+            x.type = "password";
+        }
+}
+
+function copyPassword(field) {
+
+  var copyText = document.getElementById(field.id);
+  copyText.select();
+  navigator.clipboard.writeText(copyText.value);
+  alert("Password copied");
+}
+</script>
+@endif
 @endsection

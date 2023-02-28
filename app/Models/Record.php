@@ -8,6 +8,7 @@ class Record extends Model
 {
     protected $fillable = [
         'name',
+        'user_id',
         'website',
         'username',
         'password',
@@ -16,4 +17,9 @@ class Record extends Model
     protected $hidden = [
         'password',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }
