@@ -15,7 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite('resources/sass/app.scss')
 </head>
 
 <body>
@@ -80,6 +80,11 @@
             @yield('content')
         </main>
     </div>
+    {{-- @if()
+    @vite('resources/js/passwordmanipulator.js')
+    @else
+    @vite('resources/js/passwordvalidator.js')
+    @endif --}}
 </body>
 
 </html>

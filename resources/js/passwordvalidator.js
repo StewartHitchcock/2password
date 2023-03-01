@@ -1,10 +1,7 @@
-import './bootstrap';
-
-
-var password = document.getElementById("password")
+let password = document.getElementById("password")
     , confirm_password = document.getElementById("confirm_password");
 
-function validatePassword() {
+window.validatePassword = function () {
     if (password.value != confirm_password.value) {
         confirm_password.setCustomValidity("Passwords Don't Match");
     } else {

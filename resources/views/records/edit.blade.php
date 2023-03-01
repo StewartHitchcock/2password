@@ -38,7 +38,7 @@
             <div class=" col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Password:</strong>
-                    <input type="password" name="password" class="form-control"
+                    <input id="password" type="password" name="password" class="form-control"
                         value="{{ Crypt::decryptString($record->password) }}">
                 </div>
             </div>
@@ -57,19 +57,5 @@
     </form>
 </div>
 
-<script>
-    var password = document.getElementById("password")
-  , confirm_password = document.getElementById("confirm_password");
-
-function validatePassword(){
-  if(password.value != confirm_password.value) {
-    confirm_password.setCustomValidity("Passwords Don't Match");
-  } else {
-    confirm_password.setCustomValidity('');
-  }
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
-</script>
+@vite('resources/js/passwordvalidator.js')
 @endsection

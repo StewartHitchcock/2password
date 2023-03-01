@@ -52,24 +52,6 @@
         box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.4);
     }
 </style>
-
-<script>
-    function revealPassword(revealButton) {
-        let x = document.getElementById(revealButton.id);
-        if (x.type === "password") {
-        x.type = "text";
-        } else {
-            x.type = "password";
-        }
-}
-
-function copyPassword(field) {
-
-  var copyText = document.getElementById(field.id);
-  copyText.select();
-  navigator.clipboard.writeText(copyText.value);
-  alert("Password copied");
-}
-</script>
 @endif
+@vite('resources/js/passwordmanipulator.js')
 @endsection

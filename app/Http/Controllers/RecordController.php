@@ -75,7 +75,7 @@ class RecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Record $record)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
@@ -84,7 +84,15 @@ class RecordController extends Controller
             'password' => 'required',
         ]);
 
-        $record->update($request->all());
+        // $record->update($request->all());
+
+        $record = Record::find($id);
+        $record->name = $request->name;
+        $record->user_id = Auth::id();
+        $record->website = $request->website;
+        $record->username = $request->username;
+        $record->password = Crypt::encryptString($request->password);
+        $record->save();
 
         $userId = Auth::user()->id;
         $records = Record::where('user_id', $userId)->get();
