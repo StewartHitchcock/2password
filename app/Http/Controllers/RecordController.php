@@ -50,7 +50,6 @@ class RecordController extends Controller
         $record->website = $request->website;
         $record->username = $request->username;
         // $record->password = Hash::make($request->password);
-        // $record->password = encrpyt($request->password);
         $record->password = Crypt::encryptString($request->password);
         $record->save();
 

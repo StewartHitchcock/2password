@@ -38,7 +38,8 @@
             <div class=" col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Password:</strong>
-                    <input type="password" name="password" class="form-control" value="{{ $record->password}}">
+                    <input type="password" name="password" class="form-control"
+                        value="{{ Crypt::decryptString($record->password) }}">
                 </div>
             </div>
             <div class=" col-xs-12 col-sm-12 col-md-12">
