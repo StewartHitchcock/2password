@@ -20,7 +20,8 @@
             <td>{{$value->name}}</td>
             <td>{{$value->website}}</td>
             <td>{{$value->username}}</td>
-            <td><input type="password" value="{{$value->password}}" readonly id="{{$value->name}}">
+            <td><input type="password" value="{{Crypt::decryptString($value->password)}}" readonly
+                    id="{{$value->name}}">
                 <button onclick="copyPassword({{$value->name}})">Copy</button>
                 <br />
                 <input type="checkbox" onclick="revealPassword({{$value->name}})"> Show Password
@@ -39,7 +40,9 @@
         </tr>
         @endforeach
     </table>
+    {{-- <a href="{{ url()->previous() }}"> Back </a> --}}
     <a href="{{route('record.create')}}">Create</a>
+
 
 </div>
 

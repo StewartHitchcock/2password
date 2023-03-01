@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Record;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class RecordController extends Controller
 {
@@ -40,7 +42,17 @@ class RecordController extends Controller
             'password' => 'required',
         ]);
 
-        auth()->user()->records()->create($request->all())->save();
+        // auth()->user()->records()->create($request->all())->save();
+
+        $record = new Record;
+        $record->name = $request->name;
+        $record->user_id = Auth::id();
+        $record->website = $request->website;
+        $record->username = $request->username;
+        // $record->password = Hash::make($request->password);
+        // $record->password = encrpyt($request->password);
+        $record->password = Crypt::encryptString($request->password);
+        $record->save();
 
         return redirect('/record');
     }
