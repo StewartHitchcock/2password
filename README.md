@@ -1,3 +1,26 @@
+<h1 align="center">Instructions to install locally</h1>
+
+<ol>
+    <li>Save or clone the project locally.</li>
+    <li>Create a database in the database management tool of your choosing and name it "2password".</li>
+    <li>Open a terminal program and navigate to the project location on your machine.</li>
+    <li>Run the following commands inside the folder location:
+        <ul>
+            <li>composer install</li>
+            <li>php artisan migrate</li>
+            <li>php artisan serve</li>
+            <li>In an additional terminal in the same location: npm run dev</li>
+        </ul>
+    </li>
+    <li>After running the php artisan serve command a link will appear. Click this link. You may have to ctrl + click.</li>
+    <li>This should open the project to view.</li>
+</ol>
+
+
+
+
+<p>Laravel Docs Follow</p>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
