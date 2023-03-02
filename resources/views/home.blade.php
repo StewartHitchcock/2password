@@ -19,7 +19,9 @@
 
             </div>
         </div>
-        <a href="{{route('record.index')}}">Passwords</a>
-        <a href="#">Edit User</a>
+    </div>
+    <div class="w-25 mx-auto mt-5 d-flex justify-content-around">
+        <a class="btn btn-primary btn-lg" href="{{route('record.index')}}">Passwords</a>
+        <a class="btn btn-primary btn-lg" href="#">Edit User</a>
     </div>
     @endsection
