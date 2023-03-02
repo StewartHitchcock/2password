@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('passwords', function (Blueprint $table) {
+        Schema::create('records', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBiginteger('user_id');
             $table->string('name');
             $table->string('website');
             $table->string('username');
-            $table->string('password');
+            $table->longtext('password');
+
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->timestamps();
         });
     }
 
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('passwords');
+        Schema::dropIfExists('records');
     }
 };

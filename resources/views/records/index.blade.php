@@ -14,9 +14,8 @@
         <div class="customCard mb-5 text-center" style="width:25rem;">
             <div style="padding:20px;">
                 <h3 class="fs-2"><b>{{$value->name}}</b></h3>
-                <a class="d-block mb-3 fs-4 text-decoration-none"
-                    href="https://{{$value->website}}">{{$value->website}}</a>
-                <p>Username: {{$value->username}}</p>
+                <a class="d-block mb-3 fs-4 text-decoration-none" href="{{$value->website}}">{{$value->website}}</a>
+                <p class="fs-5">{{$value->username}}</p>
                 <input class="w-75 mb-2" type="password" value="{{Crypt::decryptString($value->password)}}" readonly
                     id="{{$value->name}}">
                 <button onclick="copyPassword({{$value->name}})">Copy</button>
@@ -45,14 +44,7 @@
 </div>
 
 <style>
-    .customCard {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
-        transition: 0.5s;
-    }
 
-    .customCard:hover {
-        box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.4);
-    }
 </style>
 @endif
 @vite('resources/js/passwordmanipulator.js')

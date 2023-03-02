@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="w-75 mx-auto d-flex justify-content-around">
                         <a class="btn btn-primary btn-lg" href="{{route('record.index')}}">Passwords</a>
-                        <a class="btn btn-primary btn-lg" href="#">Edit User</a>
+                        <a class="btn btn-primary btn-lg" href="{{route('user.show', Auth::id())}}">Edit User</a>
                     </div>
                 </div>
             </div>
