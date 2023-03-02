@@ -11,7 +11,6 @@
 </div>
 @endif
 <div class="w-25 mx-auto">
-    {{-- {{dd($record)}} --}}
     <form action="{{route('record.update', $record)}}" method="post">
         @csrf
         @method('PATCH')

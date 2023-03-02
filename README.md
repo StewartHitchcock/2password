@@ -16,6 +16,14 @@
     <li>This should open the project to view.</li>
 </ol>
 
+<h2 align="center">Ideas to add</h2>
+<ul>
+    <li>Better design to the site, including a mobile first approach.</li>
+    <li>Uploading of icons for record cards</li>
+    <li>Password generator on page when making a new record</li>
+    <li>Add security and password advice on page when creating new record</li>
+    <li>Resolve issues with using bootstrap auth and updating passwords for a user</li>
+</ul>
 
 
 

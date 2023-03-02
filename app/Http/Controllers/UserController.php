@@ -20,17 +20,15 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email',
+            // 'password' => 'required',
         ]);
-
-        // $record->update($request->all());
 
         $user = user::find($user);
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = Crypt::encryptString($request->password);
+        // $user->password = Crypt::encryptString($request->password);
         $user->save();
 
         return view('/home');

@@ -42,10 +42,6 @@
         @endforeach
     </div>
 </div>
-
-<style>
-
-</style>
 @endif
 @vite('resources/js/passwordmanipulator.js')
 @endsection
