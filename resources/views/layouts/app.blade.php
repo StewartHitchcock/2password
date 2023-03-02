@@ -80,11 +80,8 @@
             @yield('content')
         </main>
     </div>
-    {{-- @if()
-    @vite('resources/js/passwordmanipulator.js')
-    @else
     @vite('resources/js/passwordvalidator.js')
-    @endif --}}
+
 </body>
 
 </html>

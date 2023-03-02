@@ -24,7 +24,8 @@
                 <div class="form-group">
                     <strong>Website:</strong>
                     <input type="text" name="website" class="form-control" placeholder="Website"
-                        value="{{ old('website')}}">
+                        value=@if(!old()) "https://www." @else "{{ old('website')}}">
+                    @endif
                 </div>
             </div>
             <div class=" col-xs-12 col-sm-12 col-md-12">

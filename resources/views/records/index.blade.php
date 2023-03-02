@@ -16,6 +16,7 @@
                 <h3 class="fs-2"><b>{{$value->name}}</b></h3>
                 <a class="d-block mb-3 fs-4 text-decoration-none"
                     href="https://{{$value->website}}">{{$value->website}}</a>
+                <p>Username: {{$value->username}}</p>
                 <input class="w-75 mb-2" type="password" value="{{Crypt::decryptString($value->password)}}" readonly
                     id="{{$value->name}}">
                 <button onclick="copyPassword({{$value->name}})">Copy</button>
@@ -23,7 +24,7 @@
                 <input type="checkbox" onclick="revealPassword({{$value->name}})"> Show Password
                 <br />
                 <div class="d-flex flex-row align-items-center justify-content-evenly py-2">
-                    <a class="btn btn-primary btn-lg" href="{{route('record.edit', $value->id)}}">Edit</a>
+                    <a class="btn btn-primary btn-lg" href="{{route('record.edit', $value)}}">Edit</a>
                     <form action="{{ route('record.destroy', $value->id) }}" method="post">
                         @method('delete')
                         @csrf

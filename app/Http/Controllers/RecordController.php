@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Record;
+use App\Traits\RecordTrait;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Hash;
 
 class RecordController extends Controller
 {
+    use RecordTrait;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $userId = Auth::user()->id;
-        $records = Record::where('user_id', $userId)->get();
+        $records = $this->getRecords();
 
         return view('records.index')
         ->with('records', $records);
@@ -37,7 +38,7 @@ class RecordController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:255 ',
-            'website' => 'required',
+            'website' => 'required|active_url',
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -49,7 +50,6 @@ class RecordController extends Controller
         $record->user_id = Auth::id();
         $record->website = $request->website;
         $record->username = $request->username;
-        // $record->password = Hash::make($request->password);
         $record->password = Crypt::encryptString($request->password);
         $record->save();
 
@@ -61,8 +61,7 @@ class RecordController extends Controller
      */
     public function show(Record $record)
     {
-        $userId = Auth::user()->id;
-        $records = Record::where('user_id', $userId)->get();
+        $records = $this->getRecords();
         if ($record->user_id != auth()->id()) {
             return view('records.index')->with('records', $records);
         } else {
@@ -75,12 +74,11 @@ class RecordController extends Controller
      */
     public function edit(Record $record)
     {
-        $userId = Auth::user()->id;
-        $records = Record::where('user_id', $userId)->get();
+        $records = $this->getRecords();
         if ($record->user_id != auth()->id()) {
             return view('records.index')->with('records', $records);
         } else {
-            return view('records.edit')->with('records', $records);
+            return view('records.edit')->with('record', $record);
         }
     }
 
@@ -89,33 +87,26 @@ class RecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $userId = Auth::user()->id;
-        $records = Record::where('user_id', $userId)->get();
-        if ($record->user_id != auth()->id()) {
-            return view('records.index')->with('records', $records);
-        } else {
-            $request->validate([
-                'name' => 'required',
-                'website' => 'required',
-                'username' => 'required',
-                'password' => 'required',
-            ]);
+        $request->validate([
+            'name' => 'required|max:255',
+            'website' => 'required|active_url',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
 
-            // $record->update($request->all());
+        // $record->update($request->all());
 
-            $record = Record::find($id);
-            $record->name = $request->name;
-            $record->user_id = Auth::id();
-            $record->website = $request->website;
-            $record->username = $request->username;
-            $record->password = Crypt::encryptString($request->password);
-            $record->save();
+        $record = Record::find($id);
+        $record->name = $request->name;
+        $record->user_id = Auth::id();
+        $record->website = $request->website;
+        $record->username = $request->username;
+        $record->password = Crypt::encryptString($request->password);
+        $record->save();
 
-            $userId = Auth::user()->id;
-            $records = Record::where('user_id', $userId)->get();
+        $records = $this->getRecords();
 
-            return view('records.index')->with('records', $records);
-        }
+        return view('records.index')->with('records', $records);
     }
 
     /**
@@ -127,8 +118,7 @@ class RecordController extends Controller
 
         $record->delete();
 
-        $userId = Auth::user()->id;
-        $records = Record::where('user_id', $userId)->get();
+        $records = $this->getRecords();
 
         return redirect('/record')->with('records', $records);
     }

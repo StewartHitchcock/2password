@@ -2,7 +2,7 @@
 @section('content')
 
 <body>
-    <div class="w-75 mx-auto text-center">
+    <div class="w-25 mx-auto text-center">
         <h1>Welcome to 2Password</h1>
 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem modi veniam voluptatibus tempora? Totam
