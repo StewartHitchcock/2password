@@ -61,7 +61,13 @@ class RecordController extends Controller
      */
     public function show(Record $record)
     {
-        return view('records.edit', compact('record'));
+        $userId = Auth::user()->id;
+        $records = Record::where('user_id', $userId)->get();
+        if ($record->user_id != auth()->id()) {
+            return view('records.index')->with('records', $records);
+        } else {
+            return view('records.edit')->with('records', $records);
+        }
     }
 
     /**
@@ -69,7 +75,13 @@ class RecordController extends Controller
      */
     public function edit(Record $record)
     {
-        return view('records.edit', compact('record'));
+        $userId = Auth::user()->id;
+        $records = Record::where('user_id', $userId)->get();
+        if ($record->user_id != auth()->id()) {
+            return view('records.index')->with('records', $records);
+        } else {
+            return view('records.edit')->with('records', $records);
+        }
     }
 
     /**
@@ -77,27 +89,33 @@ class RecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'website' => 'required',
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-
-        // $record->update($request->all());
-
-        $record = Record::find($id);
-        $record->name = $request->name;
-        $record->user_id = Auth::id();
-        $record->website = $request->website;
-        $record->username = $request->username;
-        $record->password = Crypt::encryptString($request->password);
-        $record->save();
-
         $userId = Auth::user()->id;
         $records = Record::where('user_id', $userId)->get();
+        if ($record->user_id != auth()->id()) {
+            return view('records.index')->with('records', $records);
+        } else {
+            $request->validate([
+                'name' => 'required',
+                'website' => 'required',
+                'username' => 'required',
+                'password' => 'required',
+            ]);
 
-        return view('records.index')->with('records', $records);
+            // $record->update($request->all());
+
+            $record = Record::find($id);
+            $record->name = $request->name;
+            $record->user_id = Auth::id();
+            $record->website = $request->website;
+            $record->username = $request->username;
+            $record->password = Crypt::encryptString($request->password);
+            $record->save();
+
+            $userId = Auth::user()->id;
+            $records = Record::where('user_id', $userId)->get();
+
+            return view('records.index')->with('records', $records);
+        }
     }
 
     /**

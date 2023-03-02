@@ -11,10 +11,11 @@
     <a class="btn btn-primary btn-lg mx-auto mb-5" href="{{route('record.create')}}">Create</a>
     <div class="d-flex justify-content-around flex-wrap">
         @foreach($records as $key => $value)
-        <div class="customCard mb-5" style="width:25rem;">
-            <div class="" style="padding:20px;">
-                <h4><b>{{$value->name}}</b></h4>
-                <p>{{$value->website}}</p>
+        <div class="customCard mb-5 text-center" style="width:25rem;">
+            <div style="padding:20px;">
+                <h3 class="fs-2"><b>{{$value->name}}</b></h3>
+                <a class="d-block mb-3 fs-4 text-decoration-none"
+                    href="https://{{$value->website}}">{{$value->website}}</a>
                 <input class="w-75 mb-2" type="password" value="{{Crypt::decryptString($value->password)}}" readonly
                     id="{{$value->name}}">
                 <button onclick="copyPassword({{$value->name}})">Copy</button>
